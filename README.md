@@ -1,10 +1,10 @@
 # rust_hawktracer
-Rust bindings for Amazon's Hawktracer profiler
+Rust bindings for Amazon's Hawktracer profiler.  
 This offers simple, minimal bindings to help you profile your programs.
 
 ## Warning
 I have just tested it on Windows since that's what I have at home, use it at your own risk.  
-You need an external tool in order to transform bindings from a binary format to something that can be interpreted by chrome:://tracing  
+You need an external tool in order to transform bindings from a binary format to something that can be interpreted by __chrome:://tracing__
 This tool can be build for now from the main hawktracer repo (client/hawktracer-to-json).  
 When the main hawktracer repo will offer binary releases, I would advise you to grab one from there, for now you either build it yourself, or use it from the rust_hawktracer releases.  
 
