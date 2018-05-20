@@ -1,0 +1,3 @@
+[submodule "Hawktracer"]
+path = hawktracer
+url = https://github.com/amzn/hawktracer.git

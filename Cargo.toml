@@ -2,8 +2,13 @@
 name = "rust_hawktracer"
 version = "0.1.0"
 authors = ["Alexandru <alex.ene0x11@gmail.com>"]
-
-[dependencies]
+build = "build.rs"
+links = "hawktracer"
 
 [build-dependencies]
 bindgen = "0.26.3"
+
+[features]
+default = ["profiling_enabled"]
+profiling_enabled = []
+generate_bindings=[]
