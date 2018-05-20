@@ -41,7 +41,7 @@ fn main() {
 }
 ```
 
-# Visualization
+## Visualization
 
 Download _hawktracer.json.exe_ and use it like this:
 
@@ -56,5 +56,7 @@ For the program above you should see the following trace:
 ![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/trace_demo.PNG)
 
 
-
+## Things to watch out for.
+In rust macros I can't create new variable names right now, this means that if you want to avoid warnings, the tracepoint variable names have to start with a leading ```_```, as in ```scoped_tracepoint!(_second_tracepoint)```.
+IF you figure out a way to do this, feel free to raise a PR / issue.
 
