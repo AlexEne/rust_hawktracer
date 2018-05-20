@@ -51,7 +51,9 @@ Download _hawktracer.json.exe_ and use it like this:
 
 Open a chrome browser and go to this address: ```chrome://tracing/```
 
-You should see the following image:
+For the program above you should see the following trace:  
+
+![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/trace_demo.PNG)
 
 
 
