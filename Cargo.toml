@@ -10,6 +10,5 @@ bindgen = "0.26.3"
 cmake = "0.1"
 
 [features]
-default = ["profiling_enabled"]
 profiling_enabled = []
 generate_bindings=[]

@@ -11,12 +11,18 @@ use std::fs;
 // cmake .. -G "Visual Studio 15 2017 Win64" -T v141,host=x64
 // cmake --build .
 fn main() {
-    #[cfg(feature = "bindgen")] {
+    build_project();
+    let mut extra_include_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+        extra_include_path.push("build");
+        extra_include_path.push("lib");
+        extra_include_path.push("include");
+
+    #[cfg(feature = "generate_bindings")] {
         let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
         let bindings = bindgen::Builder::default()
             .header("hawktracer/lib/include/hawktracer.h")
             .clang_arg("-I./hawktracer/lib/include/")
-            .clang_arg("-I./hawktracer/build/lib/include/")
+            .clang_arg(format!("-I{}", extra_include_path.display()))
             .generate()
             .expect("Unable to generate bindings");
         println!("Manifest dir: {:?}", manifest_dir);
@@ -27,15 +33,13 @@ fn main() {
             .expect("Couldn't write bindings!");
     }
 
-    #[cfg(not(feature = "bindgen"))] {
+    #[cfg(not(feature = "generate_bindings"))] {
         copy_pregenerated_bindings();
     }
 
-    build_project();
 
     let target = env::var("TARGET").unwrap();
     if target.contains("pc-windows") {
-        let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()); 
         let mut build_output_path = PathBuf::from(env::var("OUT_DIR").unwrap());
         build_output_path.push("build");
         build_output_path.push("lib");
@@ -57,13 +61,12 @@ fn build_project() {
     cmake::Config::new("hawktracer")
         .define("CMAKE_BUILD_TYPE", "Release")
         .define("BUILD_STATIC_LIB", "ON")
-        .generator("Visual Studio 15 2017 Win64")
         .build_target("hawktracer")
         .build();
 }
 
 
-#[cfg(not(feature = "bindgen"))]
+#[cfg(not(feature = "generate_bindings"))]
 fn copy_pregenerated_bindings() {
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     let crate_path = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());

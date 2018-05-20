@@ -275,8 +275,8 @@ pub const ETIMEDOUT: ::std::os::raw::c_uint = 138;
 pub const ETXTBSY: ::std::os::raw::c_uint = 139;
 pub const EWOULDBLOCK: ::std::os::raw::c_uint = 140;
 pub const _NLSCMPERROR: ::std::os::raw::c_uint = 2147483647;
-pub const HT_FEATURE_CALLSTACK: ::std::os::raw::c_uint = 0;
 pub const HT_FEATURE_CACHED_STRING: ::std::os::raw::c_uint = 1;
+pub const HT_FEATURE_CALLSTACK: ::std::os::raw::c_uint = 0;
 pub const _CRT_INTERNAL_STDIO_SYMBOL_PREFIX: &'static [u8; 1usize] = b"\x00";
 pub const _CRT_INTERNAL_PRINTF_LEGACY_VSPRINTF_NULL_TERMINATION:
           ::std::os::raw::c_uint =
@@ -590,63 +590,6 @@ pub enum HT_ErrorCode {
     HT_ERR_CANT_START_TCP_SERVER = 5,
     HT_ERR_CANT_CREATE_LISTENER_CONTAINER = 6,
 }
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_Bag {
-    pub min_capacity: usize,
-    pub capacity: usize,
-    pub size: usize,
-    pub data: *mut *mut ::std::os::raw::c_void,
-}
-#[test]
-fn bindgen_test_layout_HT_Bag() {
-    assert_eq!(::std::mem::size_of::<HT_Bag>() , 32usize , concat ! (
-               "Size of: " , stringify ! ( HT_Bag ) ));
-    assert_eq! (::std::mem::align_of::<HT_Bag>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( HT_Bag ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Bag ) ) . min_capacity as * const _ as
-                usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Bag ) , "::" ,
-                stringify ! ( min_capacity ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Bag ) ) . capacity as * const _ as
-                usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Bag ) , "::" ,
-                stringify ! ( capacity ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Bag ) ) . size as * const _ as usize }
-                , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Bag ) , "::" ,
-                stringify ! ( size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Bag ) ) . data as * const _ as usize }
-                , 24usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Bag ) , "::" ,
-                stringify ! ( data ) ));
-}
-impl Clone for HT_Bag {
-    fn clone(&self) -> Self { *self }
-}
-extern "C" {
-    pub fn ht_bag_init(bag: *mut HT_Bag, min_capacity: usize) -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_bag_deinit(bag: *mut HT_Bag);
-}
-extern "C" {
-    pub fn ht_bag_remove(bag: *mut HT_Bag, data: *mut ::std::os::raw::c_void);
-}
-extern "C" {
-    pub fn ht_bag_remove_nth(bag: *mut HT_Bag, n: usize);
-}
-extern "C" {
-    pub fn ht_bag_add(bag: *mut HT_Bag, data: *mut ::std::os::raw::c_void)
-     -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_bag_clear(bag: *mut HT_Bag);
-}
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum MKCREFLECT_Types {
@@ -860,56 +803,11 @@ extern "C" {
     pub fn ht_monotonic_clock_get_timestamp() -> HT_TimestampNs;
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_TimelineListenerContainer {
-    pub callbacks: HT_Bag,
-    pub user_datas: HT_Bag,
-    pub mutex: *mut _HT_Mutex,
-    pub id: u32,
-    pub refcount: ::std::os::raw::c_int,
+#[derive(Debug, Copy, Clone)]
+pub struct _HT_TimelineListenerContainer {
+    _unused: [u8; 0],
 }
-#[test]
-fn bindgen_test_layout_HT_TimelineListenerContainer() {
-    assert_eq!(::std::mem::size_of::<HT_TimelineListenerContainer>() , 80usize
-               , concat ! (
-               "Size of: " , stringify ! ( HT_TimelineListenerContainer ) ));
-    assert_eq! (::std::mem::align_of::<HT_TimelineListenerContainer>() ,
-                8usize , concat ! (
-                "Alignment of " , stringify ! ( HT_TimelineListenerContainer )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TimelineListenerContainer ) ) .
-                callbacks as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                HT_TimelineListenerContainer ) , "::" , stringify ! (
-                callbacks ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TimelineListenerContainer ) ) .
-                user_datas as * const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                HT_TimelineListenerContainer ) , "::" , stringify ! (
-                user_datas ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TimelineListenerContainer ) ) . mutex
-                as * const _ as usize } , 64usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                HT_TimelineListenerContainer ) , "::" , stringify ! ( mutex )
-                ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TimelineListenerContainer ) ) . id as
-                * const _ as usize } , 72usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                HT_TimelineListenerContainer ) , "::" , stringify ! ( id ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TimelineListenerContainer ) ) .
-                refcount as * const _ as usize } , 76usize , concat ! (
-                "Alignment of field: " , stringify ! (
-                HT_TimelineListenerContainer ) , "::" , stringify ! ( refcount
-                ) ));
-}
-impl Clone for HT_TimelineListenerContainer {
-    fn clone(&self) -> Self { *self }
-}
+pub type HT_TimelineListenerContainer = _HT_TimelineListenerContainer;
 pub type HT_TimelineListenerCallback =
     ::std::option::Option<unsafe extern "C" fn(events: TEventPtr,
                                                event_count: usize,
@@ -1982,85 +1880,21 @@ extern "C" {
 extern "C" {
     pub fn ht_HT_StringMappingEvent_register_event_klass() -> HT_EventKlassId;
 }
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_Stack {
-    pub sizes_stack: HT_Bag,
-    pub data: *mut ::std::os::raw::c_void,
-    pub size: usize,
-    pub min_capacity: usize,
-    pub capacity: usize,
-}
-#[test]
-fn bindgen_test_layout_HT_Stack() {
-    assert_eq!(::std::mem::size_of::<HT_Stack>() , 64usize , concat ! (
-               "Size of: " , stringify ! ( HT_Stack ) ));
-    assert_eq! (::std::mem::align_of::<HT_Stack>() , 8usize , concat ! (
-                "Alignment of " , stringify ! ( HT_Stack ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Stack ) ) . sizes_stack as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Stack ) , "::" ,
-                stringify ! ( sizes_stack ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Stack ) ) . data as * const _ as usize
-                } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Stack ) , "::" ,
-                stringify ! ( data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Stack ) ) . size as * const _ as usize
-                } , 40usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Stack ) , "::" ,
-                stringify ! ( size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Stack ) ) . min_capacity as * const _
-                as usize } , 48usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Stack ) , "::" ,
-                stringify ! ( min_capacity ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_Stack ) ) . capacity as * const _ as
-                usize } , 56usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_Stack ) , "::" ,
-                stringify ! ( capacity ) ));
-}
-impl Clone for HT_Stack {
-    fn clone(&self) -> Self { *self }
-}
 extern "C" {
-    pub fn ht_stack_init(stack: *mut HT_Stack, capacity: usize,
-                         n_capacity: usize) -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_stack_deinit(stack: *mut HT_Stack);
-}
-extern "C" {
-    pub fn ht_stack_push(stack: *mut HT_Stack,
-                         data: *mut ::std::os::raw::c_void, size: usize)
+    pub fn ht_feature_cached_string_enable(timeline: *mut HT_Timeline)
      -> HT_ErrorCode;
 }
 extern "C" {
-    pub fn ht_stack_pop(stack: *mut HT_Stack);
+    pub fn ht_feature_cached_string_disable(timeline: *mut HT_Timeline);
 }
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_FeatureCallstack {
-    pub stack: HT_Stack,
+extern "C" {
+    pub fn ht_feature_cached_string_add_mapping(timeline: *mut HT_Timeline,
+                                                label:
+                                                    *const ::std::os::raw::c_char)
+     -> *const ::std::os::raw::c_char;
 }
-#[test]
-fn bindgen_test_layout_HT_FeatureCallstack() {
-    assert_eq!(::std::mem::size_of::<HT_FeatureCallstack>() , 64usize , concat
-               ! ( "Size of: " , stringify ! ( HT_FeatureCallstack ) ));
-    assert_eq! (::std::mem::align_of::<HT_FeatureCallstack>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( HT_FeatureCallstack ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_FeatureCallstack ) ) . stack as *
-                const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_FeatureCallstack ) ,
-                "::" , stringify ! ( stack ) ));
-}
-impl Clone for HT_FeatureCallstack {
-    fn clone(&self) -> Self { *self }
+extern "C" {
+    pub fn ht_feature_cached_string_push_map(timeline: *mut HT_Timeline);
 }
 extern "C" {
     pub fn ht_feature_callstack_enable(timeline: *mut HT_Timeline)
@@ -2085,50 +1919,6 @@ extern "C" {
                                              label:
                                                  *const ::std::os::raw::c_char);
 }
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_FeatureCachedString {
-    pub cached_data: HT_Bag,
-    pub lock: *mut _HT_Mutex,
-}
-#[test]
-fn bindgen_test_layout_HT_FeatureCachedString() {
-    assert_eq!(::std::mem::size_of::<HT_FeatureCachedString>() , 40usize ,
-               concat ! ( "Size of: " , stringify ! ( HT_FeatureCachedString )
-               ));
-    assert_eq! (::std::mem::align_of::<HT_FeatureCachedString>() , 8usize ,
-                concat ! (
-                "Alignment of " , stringify ! ( HT_FeatureCachedString ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_FeatureCachedString ) ) . cached_data
-                as * const _ as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_FeatureCachedString
-                ) , "::" , stringify ! ( cached_data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_FeatureCachedString ) ) . lock as *
-                const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_FeatureCachedString
-                ) , "::" , stringify ! ( lock ) ));
-}
-impl Clone for HT_FeatureCachedString {
-    fn clone(&self) -> Self { *self }
-}
-extern "C" {
-    pub fn ht_feature_cached_string_enable(timeline: *mut HT_Timeline)
-     -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_feature_cached_string_disable(timeline: *mut HT_Timeline);
-}
-extern "C" {
-    pub fn ht_feature_cached_string_add_mapping(timeline: *mut HT_Timeline,
-                                                label:
-                                                    *const ::std::os::raw::c_char)
-     -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ht_feature_cached_string_push_map(timeline: *mut HT_Timeline);
-}
 extern "C" {
     pub fn ht_global_timeline_get() -> *mut HT_Timeline;
 }
@@ -2138,68 +1928,6 @@ extern "C" {
 }
 extern "C" {
     pub fn ht_deinit();
-}
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_ListenerBuffer {
-    pub data: *mut HT_Byte,
-    pub max_size: usize,
-    pub usage: usize,
-}
-#[test]
-fn bindgen_test_layout_HT_ListenerBuffer() {
-    assert_eq!(::std::mem::size_of::<HT_ListenerBuffer>() , 24usize , concat !
-               ( "Size of: " , stringify ! ( HT_ListenerBuffer ) ));
-    assert_eq! (::std::mem::align_of::<HT_ListenerBuffer>() , 8usize , concat
-                ! ( "Alignment of " , stringify ! ( HT_ListenerBuffer ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_ListenerBuffer ) ) . data as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_ListenerBuffer ) ,
-                "::" , stringify ! ( data ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_ListenerBuffer ) ) . max_size as *
-                const _ as usize } , 8usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_ListenerBuffer ) ,
-                "::" , stringify ! ( max_size ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_ListenerBuffer ) ) . usage as * const
-                _ as usize } , 16usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_ListenerBuffer ) ,
-                "::" , stringify ! ( usage ) ));
-}
-impl Clone for HT_ListenerBuffer {
-    fn clone(&self) -> Self { *self }
-}
-pub type HT_ListenerFlushCallback =
-    ::std::option::Option<unsafe extern "C" fn(arg1:
-                                                   *mut ::std::os::raw::c_void)>;
-extern "C" {
-    pub fn ht_listener_buffer_init(buffer: *mut HT_ListenerBuffer,
-                                   max_size: usize) -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_listener_buffer_deinit(buffer: *mut HT_ListenerBuffer);
-}
-extern "C" {
-    pub fn ht_listener_buffer_process_serialized_events(buffer:
-                                                            *mut HT_ListenerBuffer,
-                                                        events: TEventPtr,
-                                                        size: usize,
-                                                        flush_callback:
-                                                            HT_ListenerFlushCallback,
-                                                        listener:
-                                                            *mut ::std::os::raw::c_void);
-}
-extern "C" {
-    pub fn ht_listener_buffer_process_unserialized_events(buffer:
-                                                              *mut HT_ListenerBuffer,
-                                                          events: TEventPtr,
-                                                          size: usize,
-                                                          flush_callback:
-                                                              HT_ListenerFlushCallback,
-                                                          listener:
-                                                              *mut ::std::os::raw::c_void);
 }
 #[repr(C)]
 #[derive(Debug, Copy)]
@@ -2833,37 +2561,17 @@ pub enum HT_TaskSchedulingMode {
     HT_TASK_SCHEDULING_RESTART_TIMER = 1,
 }
 #[repr(C)]
-#[derive(Debug, Copy)]
-pub struct HT_TaskScheduler {
-    pub tasks: HT_Bag,
-    pub next_task_id: HT_TaskId,
+#[derive(Debug, Copy, Clone)]
+pub struct _HT_TaskScheduler {
+    _unused: [u8; 0],
 }
-#[test]
-fn bindgen_test_layout_HT_TaskScheduler() {
-    assert_eq!(::std::mem::size_of::<HT_TaskScheduler>() , 40usize , concat !
-               ( "Size of: " , stringify ! ( HT_TaskScheduler ) ));
-    assert_eq! (::std::mem::align_of::<HT_TaskScheduler>() , 8usize , concat !
-                ( "Alignment of " , stringify ! ( HT_TaskScheduler ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TaskScheduler ) ) . tasks as * const _
-                as usize } , 0usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_TaskScheduler ) ,
-                "::" , stringify ! ( tasks ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const HT_TaskScheduler ) ) . next_task_id as *
-                const _ as usize } , 32usize , concat ! (
-                "Alignment of field: " , stringify ! ( HT_TaskScheduler ) ,
-                "::" , stringify ! ( next_task_id ) ));
-}
-impl Clone for HT_TaskScheduler {
-    fn clone(&self) -> Self { *self }
+pub type HT_TaskScheduler = _HT_TaskScheduler;
+extern "C" {
+    pub fn ht_task_scheduler_create(out_err: *mut HT_ErrorCode)
+     -> *mut HT_TaskScheduler;
 }
 extern "C" {
-    pub fn ht_task_scheduler_init(task_scheduler: *mut HT_TaskScheduler)
-     -> HT_ErrorCode;
-}
-extern "C" {
-    pub fn ht_task_scheduler_deinit(task_scheduler: *mut HT_TaskScheduler);
+    pub fn ht_task_scheduler_destroy(task_scheduler: *mut HT_TaskScheduler);
 }
 extern "C" {
     pub fn ht_task_scheduler_schedule_task(task_scheduler:
@@ -2905,13 +2613,5 @@ pub struct __crt_multibyte_data {
     pub _address: u8,
 }
 impl Clone for __crt_multibyte_data {
-    fn clone(&self) -> Self { *self }
-}
-#[repr(C)]
-#[derive(Debug, Copy)]
-pub struct _HT_Mutex {
-    pub _address: u8,
-}
-impl Clone for _HT_Mutex {
     fn clone(&self) -> Self { *self }
 }
