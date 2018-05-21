@@ -1,0 +1,73 @@
+## Operating System (VM environment) ##
+
+# Rust needs at least Visual Studio 2013 Appveyor OS for MSVC targets.
+os: Visual Studio 2017
+
+## Build Matrix ##
+
+environment:
+  global:
+  # TODO This is the Rust channel that build jobs will use by default but can be
+  # overridden on a case by case basis down below
+    RUST_VERSION: stable
+
+### MSVC Toolchains ###
+  matrix:
+    # MinGW
+    #- TARGET: i686-pc-windows-gnu
+    #- TARGET: x86_64-pc-windows-gnu
+
+    # MSVC
+    - TARGET: i686-pc-windows-msvc
+    - TARGET: x86_64-pc-windows-msvc
+
+    # Testing other channels
+    - TARGET: i686-pc-windows-msvc
+      RUST_VERSION: nightly
+    - TARGET: x86_64-pc-windows-msvc
+      RUST_VERSION: nightly
+
+### Allowed failures ###
+
+# See Appveyor documentation for specific details. In short, place any channel or targets you wish
+# to allow build failures on (usually nightly at least is a wise choice). This will prevent a build
+# or test failure in the matching channels/targets from failing the entire build.
+matrix:
+  allow_failures:
+    - RUST_VERSION: nightly
+
+## Install Script ##
+install:
+- ps: If ($Env:TARGET -eq 'x86_64-pc-windows-gnu') {
+      $Env:PATH += ';C:\msys64\mingw64\bin'
+    } ElseIf ($Env:TARGET -eq 'i686-pc-windows-gnu') {
+      $Env:PATH += ';C:\msys64\mingw32\bin'
+    }
+- curl -sSf -o rustup-init.exe https://win.rustup.rs/
+- rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
+- set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
+- rustc -Vv
+- cargo -V
+
+
+## Build Script ##
+
+# Uses 'cargo build' to build. Alternatively, the project may call rustc directly or perform other
+# build commands. Rust will automatically be placed in the PATH environment variable.
+build_script:
+- cmd: cargo build --verbose
+
+## Build Script ##
+
+# Uses 'cargo test' to run tests. Alternatively, the project may call compiled programs directly or
+# perform other testing commands. Rust will automatically be placed in the PATH environment
+# variable.
+test_script:
+- cmd: cargo test --verbose --features=generate_bindings,profiling_enabled
+
+# Only build against the branches that will have pull requests built against them (master).
+# Otherwise creating feature branches on this repository and a pull requests against them will
+# cause each commit to be tested twice, once for the branch and once for the pull request.
+branches:
+  only:
+    - master
