@@ -65,8 +65,17 @@ fn main() {
 }
 
 fn build_project() {
+    let configuration_type = {
+        #[cfg(debug_assertions)] { 
+            "Debug"
+        }
+        #[cfg(not(debug_assertions))] { 
+            "Release"
+        }
+    };
+    
     cmake::Config::new("hawktracer")
-        .define("CMAKE_BUILD_TYPE", "Release")
+        .define("CMAKE_BUILD_TYPE", configuration_type)
         .define("BUILD_STATIC_LIB", "ON")
         .build_target("hawktracer")
         .build();
