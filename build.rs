@@ -24,6 +24,7 @@ fn main() {
             .header("hawktracer/lib/include/hawktracer.h")
             .clang_arg("-I./hawktracer/lib/include/")
             .clang_arg(format!("-I{}", extra_include_path.display()))
+            .blacklist_type("max_align_t")
             .generate()
             .expect("Unable to generate bindings");
         println!("Manifest dir: {:?}", manifest_dir);
@@ -52,6 +53,8 @@ fn main() {
         #[cfg(not(debug_assertions))] {
             build_output_path.push("Release");
         }
+    } else {
+        println!("cargo:rustc-link-lib=dylib=stdc++");
     }
 
     println!("cargo:rustc-link-search=all={}", build_output_path.display());
