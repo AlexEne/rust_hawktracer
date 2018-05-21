@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AlexEne/rust_hawktracer.svg?branch=master)](https://travis-ci.org/AlexEne/rust_hawktracer)
+
 # rust_hawktracer
 Rust bindings for Amazon's Hawktracer profiler.  
 This offers simple, minimal bindings to help you profile your programs.
