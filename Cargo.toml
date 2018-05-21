@@ -6,7 +6,6 @@ build = "build.rs"
 links = "hawktracer"
 
 [build-dependencies]
-
 cmake = "0.1"
 
 [build-dependencies.bindgen]

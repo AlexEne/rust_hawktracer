@@ -45,6 +45,7 @@ fn main() {
     build_output_path.push("lib");
 
     let target = env::var("TARGET").unwrap();
+
     if target.contains("pc-windows") {    
         #[cfg(debug_assertions)] { 
             build_output_path.push("Debug");
@@ -53,8 +54,10 @@ fn main() {
         #[cfg(not(debug_assertions))] {
             build_output_path.push("Release");
         }
-    } else {
+    } else if target.contains("linux") {
         println!("cargo:rustc-link-lib=dylib=stdc++");
+    } else if target.contains("apple") {
+        println!("cargo:rustc-link-lib=dylib=c++"); 
     }
 
     println!("cargo:rustc-link-search=all={}", build_output_path.display());
