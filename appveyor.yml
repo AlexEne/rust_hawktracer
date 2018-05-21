@@ -64,7 +64,7 @@ build_script:
 # perform other testing commands. Rust will automatically be placed in the PATH environment
 # variable.
 test_script:
-- cmd: cargo test --verbose --features=generate_bindings,profiling_enabled
+- cmd: cargo test --verbose --features=profiling_enabled
 
 # Only build against the branches that will have pull requests built against them (master).
 # Otherwise creating feature branches on this repository and a pull requests against them will
