@@ -1,3 +1,4 @@
+#[cfg(feature = "bindgen")]
 extern crate bindgen;
 extern crate cmake;
 
@@ -38,12 +39,12 @@ fn main() {
     }
 
 
+    let mut build_output_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+    build_output_path.push("build");
+    build_output_path.push("lib");
+
     let target = env::var("TARGET").unwrap();
-    if target.contains("pc-windows") {
-        let mut build_output_path = PathBuf::from(env::var("OUT_DIR").unwrap());
-        build_output_path.push("build");
-        build_output_path.push("lib");
-        
+    if target.contains("pc-windows") {    
         #[cfg(debug_assertions)] { 
             build_output_path.push("Debug");
         }
@@ -51,10 +52,10 @@ fn main() {
         #[cfg(not(debug_assertions))] {
             build_output_path.push("Release");
         }
-
-        println!("cargo:rustc-link-search=all={}", build_output_path.display());
-        println!("cargo:rustc-link-lib=static=hawktracer");
     }
+
+    println!("cargo:rustc-link-search=all={}", build_output_path.display());
+    println!("cargo:rustc-link-lib=static=hawktracer");
 }
 
 fn build_project() {
