@@ -48,6 +48,7 @@ install:
 - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
 - rustc -Vv
 - cargo -V
+- git submodule update --init
 
 
 ## Build Script ##
