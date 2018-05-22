@@ -5,7 +5,7 @@ Rust bindings for Amazon's Hawktracer profiler.
 This offers simple, minimal bindings to help you profile your programs.
 
 
-![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/demo.PNG)  
+![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/demo.png)  
 
 
 ## Warning
