@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/AlexEne/rust_hawktracer.svg?branch=master)](https://travis-ci.org/AlexEne/rust_hawktracer)
+[![Build Status](https://travis-ci.org/AlexEne/rust_hawktracer.svg?branch=master)](https://travis-ci.org/AlexEne/rust_hawktracer) [![Build status](https://ci.appveyor.com/api/projects/status/3nejp7wvwddq5wnq?svg=true)](https://ci.appveyor.com/project/AlexEne/rust-hawktracer)
 
 # rust_hawktracer
 Rust bindings for Amazon's Hawktracer profiler.  
