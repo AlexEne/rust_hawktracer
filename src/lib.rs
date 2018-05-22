@@ -77,7 +77,7 @@ pub fn stop_hawktracer(listener: *mut _HT_FileDumpListener) {
 }
 
 #[cfg(not(feature = "profiling_enabled"))]
-pub fn stop_hawktracer(listener: *mut _HT_FileDumpListener) {
+pub fn stop_hawktracer(_listener: *mut _HT_FileDumpListener) {
 }
 
 #[cfg(not(feature = "profiling_enabled"))]
