@@ -15,14 +15,14 @@ For now you either build it yourself, or use the one from the rust_hawktracer re
 
 ## How to use
 In Cargo.toml:
-```
+```toml
 [dependencies]
 rust_hawktracer = {git = "https://github.com/AlexEne/rust_hawktracer.git", features=["profiling_enabled"]}
 ```
 
 In your main.rs:
 
-```
+```rust
 #[macro_use]
 extern crate rust_hawktracer;
 use rust_hawktracer::*;
