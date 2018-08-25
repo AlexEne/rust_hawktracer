@@ -15,3 +15,6 @@ optional = true
 [features]
 profiling_enabled = []
 generate_bindings=["bindgen"]
+
+[lib]
+crate-type = ["dylib"]
