@@ -62,7 +62,7 @@ pub fn start_hawktracer<S: Into<String>>(file_name: S, buffer_size: usize) -> *m
             Some(ht_file_dump_listener_callback),
             listener as _,
         );
-        ht_registry_push_all_klass_info_events(ht_global_timeline_get());
+
         listener 
     }
 }
@@ -71,6 +71,7 @@ pub fn start_hawktracer<S: Into<String>>(file_name: S, buffer_size: usize) -> *m
 pub fn stop_hawktracer(listener: *mut _HT_FileDumpListener) {
     unsafe {
         ht_timeline_flush(ht_global_timeline_get());
+        ht_timeline_unregister_all_listeners(ht_global_timeline_get());
         ht_file_dump_listener_destroy(listener);
         ht_deinit();
     }
