@@ -3,7 +3,7 @@ extern crate bindgen;
 extern crate cmake;
 
 use std::env;
-use std::path::{PathBuf, Path};
+use std::path::{PathBuf};
 use std::fs;
 
 //In order to build 64 bit hawktracer:
@@ -68,7 +68,6 @@ fn main() {
     }
 
     println!("cargo:rustc-link-search=all={}", build_output_path.display());
-    // println!("cargo:rustc-link-search=all={}", second_build_output_path.display());
     println!("cargo:rustc-link-lib=static=hawktracer");
 }
 
@@ -83,7 +82,7 @@ fn build_project() {
     };
     
     cmake::Config::new("hawktracer")
-        .define("CMAKE_BUILD_TYPE", "Release")
+        .define("CMAKE_BUILD_TYPE", configuration_type)
         .define("BUILD_STATIC_LIB", "ON")
         .build_target("hawktracer")
         .build();
