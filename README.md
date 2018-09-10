@@ -11,7 +11,7 @@ This offers simple, minimal bindings to help you profile your programs.
 ## Warning
 You need an external tool in order to transform bindings from a binary format to something that can be interpreted by __chrome:://tracing__
 This tool can be build for now from the main hawktracer repo (client/hawktracer-to-json).  
-For now you either build it yourself, or use the one from the rust_hawktracer releases: https://github.com/AlexEne/rust_hawktracer/releases/tag/First_release
+I recommend taking the binaries from the official rust_hawktracer releases: https://github.com/amzn/hawktracer/releases/tag/v0.6.0
 
 ## How to use
 In Cargo.toml:
@@ -48,10 +48,10 @@ fn main() {
 
 ## Visualization
 
-Download _hawktracer.json.exe_ and use it like this:
+Download _hawktracer-converter.exe_ and use it like this:
 
 ```
-.\hawktracer-to-json.exe --source trace.bin --output trace.json
+.\hawktracer-converter.exe --source trace.bin --output trace.json
 ```
 
 Open a chrome browser and go to this address: ```chrome://tracing/```
