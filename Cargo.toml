@@ -1,6 +1,6 @@
 [package]
 name = "rust_hawktracer"
-version = "0.1.0"
+version = "0.0.2"
 authors = ["Alexandru <alex.ene0x11@gmail.com>"]
 build = "build.rs"
 links = "hawktracer"

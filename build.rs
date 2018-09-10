@@ -3,7 +3,7 @@ extern crate bindgen;
 extern crate cmake;
 
 use std::env;
-use std::path::PathBuf;
+use std::path::{PathBuf, Path};
 use std::fs;
 
 //In order to build 64 bit hawktracer:
@@ -43,7 +43,8 @@ fn main() {
     let mut build_output_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     build_output_path.push("build");
     build_output_path.push("lib");
-
+    let mut second_build_output_path = build_output_path.clone();
+    second_build_output_path.push("RelWithDebInfo");
     let target = env::var("TARGET").unwrap();
 
     if target.contains("pc-windows") {    
@@ -53,6 +54,12 @@ fn main() {
 
         #[cfg(not(debug_assertions))] {
             build_output_path.push("Release");
+            if !Path::new(&build_output_path).exists() {
+                //If debug = true is specified, then this generates RelWithDebInfo.
+                if Path::new(&second_build_output_path).exists() {
+                    build_output_path = second_build_output_path;
+                }
+            }
         }
     } else if target.contains("linux") {
         println!("cargo:rustc-link-lib=dylib=stdc++");
@@ -61,6 +68,7 @@ fn main() {
     }
 
     println!("cargo:rustc-link-search=all={}", build_output_path.display());
+    // println!("cargo:rustc-link-search=all={}", second_build_output_path.display());
     println!("cargo:rustc-link-lib=static=hawktracer");
 }
 
@@ -75,7 +83,7 @@ fn build_project() {
     };
     
     cmake::Config::new("hawktracer")
-        .define("CMAKE_BUILD_TYPE", configuration_type)
+        .define("CMAKE_BUILD_TYPE", "Release")
         .define("BUILD_STATIC_LIB", "ON")
         .build_target("hawktracer")
         .build();
