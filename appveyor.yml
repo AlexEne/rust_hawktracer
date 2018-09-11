@@ -59,7 +59,8 @@ install:
 # Uses 'cargo build' to build. Alternatively, the project may call rustc directly or perform other
 # build commands. Rust will automatically be placed in the PATH environment variable.
 build_script:
-- cmd: cargo build --verbose --features=profiling_enabled %RELEASE%
+- echo %RELEASE%
+- cmd: cargo build --verbose %RELEASE% --features=profiling_enabled
 
 ## Build Script ##
 
@@ -67,7 +68,7 @@ build_script:
 # perform other testing commands. Rust will automatically be placed in the PATH environment
 # variable.
 test_script:
-- cmd: cargo test --verbose --features=profiling_enabled,generate_bindings %RELEASE%
+- cmd: cargo test --verbose %RELEASE% --features=profiling_enabled,generate_bindings
 
 # Only build against the branches that will have pull requests built against them (master).
 # Otherwise creating feature branches on this repository and a pull requests against them will
