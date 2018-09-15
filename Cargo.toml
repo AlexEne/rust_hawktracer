@@ -1,9 +1,15 @@
 [package]
 name = "rust_hawktracer"
-version = "0.0.2"
-authors = ["Alexandru <alex.ene0x11@gmail.com>"]
+version = "0.1.0"
+authors = ["Alexandru Ene <alex.ene0x11@gmail.com>"]
 build = "build.rs"
 links = "hawktracer"
+description = "Rust bindings for hawktracer profiling library."
+keywords = ["profiling"]
+categories = ["profiling"]
+repository = "https://github.com/AlexEne/rust_hawktracer"
+readme = "README.md"
+license = "MIT"
 
 [build-dependencies]
 cmake = "0.1"
