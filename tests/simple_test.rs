@@ -4,12 +4,14 @@ use std::{thread, time};
 extern crate rust_hawktracer;
 use rust_hawktracer::*;
 use std::fs;
+use std::path::Path;
 
 #[test]
 fn simmple_tracing_test() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
-    let instance = start_hawktracer(file_name, 4096);
+    let _instance = create_hawktracer_instance(file_name, 4096);
+
     {
         for _ in 0..3 {
             scoped_tracepoint!(_test);
@@ -21,10 +23,5 @@ fn simmple_tracing_test() {
         thread::sleep(time::Duration::from_millis(10));
     }
 
-    stop_hawktracer(instance);
-
-    let metadata = fs::metadata(file_name).unwrap();
-    assert!(metadata.len() > 0);
+    assert!(std::path::Path::new(file_name).exists());
 }
-
-

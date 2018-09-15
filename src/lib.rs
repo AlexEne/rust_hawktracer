@@ -10,7 +10,7 @@ macro_rules! scoped_tracepoint {
     ($name:ident) => {
         let tracepoint_name = concat!(stringify!($name), "\0");
         ScopedTracepoint::start_trace(tracepoint_name.as_ptr() as _);
-        let $name = ScopedTracepoint{};
+        let $name = ScopedTracepoint {};
     };
 }
 
@@ -35,6 +35,50 @@ impl ScopedTracepoint {
 }
 
 #[cfg(feature = "profiling_enabled")]
+pub struct HawktracerInstance {
+    listener: *mut _HT_FileDumpListener,
+}
+
+#[cfg(feature = "profiling_enabled")]
+impl HawktracerInstance {
+    pub fn new<S: Into<String>>(file_name: S, buffer_size: usize) -> HawktracerInstance {
+        let file_name = std::ffi::CString::new(file_name.into()).unwrap();
+        use std::os::raw::c_char;
+        let p: *mut *mut c_char = std::ptr::null_mut();
+        let listener = unsafe {
+            ht_init(0, p);
+            let listener = ht_file_dump_listener_create(
+                file_name.as_ptr(),
+                buffer_size,
+                std::ptr::null_mut() as _,
+            );
+
+            ht_timeline_register_listener(
+                ht_global_timeline_get(),
+                Some(ht_file_dump_listener_callback),
+                listener as _,
+            );
+
+            listener
+        };
+
+        HawktracerInstance { listener: listener }
+    }
+}
+
+#[cfg(feature = "profiling_enabled")]
+impl Drop for HawktracerInstance {
+    fn drop(&mut self) {
+        unsafe {
+            ht_timeline_flush(ht_global_timeline_get());
+            ht_timeline_unregister_all_listeners(ht_global_timeline_get());
+            ht_file_dump_listener_destroy(self.listener);
+            ht_deinit();
+        }
+    }
+}
+
+#[cfg(feature = "profiling_enabled")]
 impl Drop for ScopedTracepoint {
     fn drop(&mut self) {
         unsafe {
@@ -44,12 +88,14 @@ impl Drop for ScopedTracepoint {
 }
 
 #[cfg(feature = "profiling_enabled")]
-pub fn start_hawktracer<S: Into<String>>(file_name: S, buffer_size: usize) -> *mut _HT_FileDumpListener {
+pub fn create_hawktracer_instance<S: Into<String>>(
+    file_name: S,
+    buffer_size: usize,
+) -> HawktracerInstance {
     let file_name = std::ffi::CString::new(file_name.into()).unwrap();
-    
-    unsafe {
-        use std::os::raw::c_char;
-        let p: *mut *mut c_char = std::ptr::null_mut();
+    use std::os::raw::c_char;
+    let p: *mut *mut c_char = std::ptr::null_mut();
+    let listener = unsafe {
         ht_init(0, p);
         let listener = ht_file_dump_listener_create(
             file_name.as_ptr(),
@@ -63,25 +109,11 @@ pub fn start_hawktracer<S: Into<String>>(file_name: S, buffer_size: usize) -> *m
             listener as _,
         );
 
-        listener 
-    }
-}
+        listener
+    };
 
-#[cfg(feature = "profiling_enabled")]
-pub fn stop_hawktracer(listener: *mut _HT_FileDumpListener) {
-    unsafe {
-        ht_timeline_flush(ht_global_timeline_get());
-        ht_timeline_unregister_all_listeners(ht_global_timeline_get());
-        ht_file_dump_listener_destroy(listener);
-        ht_deinit();
-    }
+    HawktracerInstance { listener: listener }
 }
 
 #[cfg(not(feature = "profiling_enabled"))]
-pub fn stop_hawktracer(_listener: *mut _HT_FileDumpListener) {
-}
-
-#[cfg(not(feature = "profiling_enabled"))]
-pub fn start_hawktracer<S: Into<String>>(_file_name: S, _buffer_size: usize) -> *mut _HT_FileDumpListener {
-    std::ptr::null_mut() as _
-}
+pub fn create_hawktracer_instance<S: Into<String>>(_file_name: S, _buffer_size: usize) {}
