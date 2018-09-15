@@ -9,7 +9,7 @@ keywords = ["profiling"]
 categories = ["development-tools::profiling"]
 repository = "https://github.com/AlexEne/rust_hawktracer"
 readme = "README.md"
-license = "MIT"
+license = "MIT/Apache-2.0"
 
 [build-dependencies]
 cmake = "0.1"
