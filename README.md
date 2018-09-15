@@ -18,8 +18,9 @@ I recommend taking the binaries from the official rust_hawktracer releases: http
 ## How to use
 In Cargo.toml:
 ```toml
-[dependencies]
-rust_hawktracer = {git = "https://github.com/AlexEne/rust_hawktracer.git", features=["profiling_enabled"]}
+[dependencies.rust_hawktracer]
+version = "0.1.0"
+features=["profiling_enabled"]
 ```
 
 In your main.rs:
