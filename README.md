@@ -5,7 +5,7 @@ Rust bindings for Amazon's Hawktracer profiler.
 This offers simple, minimal bindings to help you profile your programs.
 
 
-![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/demo.png)  
+![alt text](https://github.com/AlexEne/alexene.github.io/raw/master/images/rust_hawktracer/demo.png)  
 
 
 ## Warning
@@ -57,7 +57,7 @@ Open a chrome browser and go to this address: ```chrome://tracing/```
 
 For the program above you should see the following trace:  
 
-![alt text](https://github.com/AlexEne/rust_hawktracer/raw/master/images/trace_demo.PNG)
+![alt text](https://github.com/AlexEne/alexene.github.io/raw/master/images/rust_hawktracer/trace_demo.png)
 
 
 ## Things to watch out for.
