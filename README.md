@@ -29,7 +29,7 @@ use rust_hawktracer::*;
 use std::{thread, time};
 
 fn main() {
-    let instance = rust_hawktracer::start_hawktracer("trace.bin", 4096);
+    let _instance = create_hawktracer_instance("trace.bin", 4096);
     println!("Hello, world!");
     {
         scoped_tracepoint!(_test);
@@ -42,7 +42,6 @@ fn main() {
             }
         }
     }
-    rust_hawktracer::stop_hawktracer(instance);
 }
 ```
 
