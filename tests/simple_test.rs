@@ -5,7 +5,7 @@ use rust_hawktracer::*;
 use std::fs;
 
 #[test]
-fn simmple_tracing_test() {
+fn simple_tracing_test() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
     let _instance = create_hawktracer_instance(file_name, 4096);
