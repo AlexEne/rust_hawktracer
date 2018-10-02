@@ -19,7 +19,7 @@ I recommend taking the binaries from the official rust_hawktracer releases: http
 In Cargo.toml:
 ```toml
 [dependencies.rust_hawktracer]
-version = "0.1.1"
+version = "0.2.0"
 features=["profiling_enabled"]
 ```
 

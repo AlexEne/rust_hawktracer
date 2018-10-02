@@ -1,10 +1,8 @@
-use std::{thread, time};
+use std::{thread, time, path};
 
-#[macro_use]
 extern crate rust_hawktracer;
 use rust_hawktracer::*;
 use std::fs;
-use std::path::Path;
 
 #[test]
 fn simmple_tracing_test() {
@@ -23,5 +21,5 @@ fn simmple_tracing_test() {
         thread::sleep(time::Duration::from_millis(10));
     }
 
-    assert!(std::path::Path::new(file_name).exists());
+    assert!(path::Path::new(file_name).exists());
 }
