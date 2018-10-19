@@ -22,7 +22,8 @@ fn do_work(){
 fn tracing_test_to_file() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
-    let _listener = create_hawktracer_listener(HawktracerListenerType::ToFile {
+    let mut hawktracer_instance = HawktracerInstance::new();
+    let _listener = hawktracer_instance.create_hawktracer_listener(HawktracerListenerType::ToFile {
         file_path: file_name.into(),
         buffer_size: 4096,
     });
@@ -32,13 +33,15 @@ fn tracing_test_to_file() {
     #[cfg(feature = "profiling_enabled")]
     {
         assert!(std::path::Path::new(file_name).exists());
+        fs::remove_file(file_name);
     }
 }
 
 
 #[test]
 fn tracing_test_network() {
-    let _listener = create_hawktracer_listener(HawktracerListenerType::TCP {
+    let mut hawktracer_instance = HawktracerInstance::new();
+    let _listener = hawktracer_instance.create_hawktracer_listener(HawktracerListenerType::TCP {
         port: 12345,
         buffer_size: 4096,
     });
@@ -51,13 +54,15 @@ fn tracing_test_network() {
 fn tracing_test_two_listeners() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
-    let _file_listener = create_hawktracer_listener(HawktracerListenerType::ToFile {
+    
+    let mut hawktracer_instance = HawktracerInstance::new();
+    let _file_listener = hawktracer_instance.create_hawktracer_listener(HawktracerListenerType::ToFile {
         file_path: file_name.into(),
         buffer_size: 4096,
     });
 
-    let _network_listener = create_hawktracer_listener(HawktracerListenerType::TCP {
-        port: 1111,
+    let _network_listener = hawktracer_instance.create_hawktracer_listener(HawktracerListenerType::TCP {
+        port: 12344,
         buffer_size: 4096,
     });
 
@@ -66,5 +71,6 @@ fn tracing_test_two_listeners() {
     #[cfg(feature = "profiling_enabled")]
     {
         assert!(std::path::Path::new(file_name).exists());
+        fs::remove_file(file_name);
     }
 }
