@@ -30,7 +30,7 @@ pub enum HawktracerListenerType {
 }
 
 #[cfg(feature = "profiling_enabled")]
-pub fn create_hawktracer_instance(
+pub fn create_hawktracer_listener(
     listener_type: HawktracerListenerType,
 ) -> Box<HawktracerListener> {
     use std::boxed::Box;
@@ -72,4 +72,4 @@ macro_rules! scoped_tracepoint {
 }
 
 #[cfg(not(feature = "profiling_enabled"))]
-pub fn create_hawktracer_instance(_instance_type: HawktracerListenerType) {}
+pub fn create_hawktracer_listener(_instance_type: HawktracerListenerType) {}
