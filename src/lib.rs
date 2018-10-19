@@ -1,8 +1,12 @@
 #[allow(dead_code)]
-mod rust_hawktracer;
+mod internals;
 
-pub use rust_hawktracer::create_hawktracer_instance;
-pub use rust_hawktracer::ScopedTracepoint;
+#[allow(unused_imports)]
+use internals::hawktracer_listener::HawktracerListener;
+
+pub use internals::scoped_tracepoint::ScopedTracepoint;
+pub use internals::hawktracer_instance::HawktracerListenerType;
+pub use internals::hawktracer_instance::HawktracerInstance;
 
 #[macro_export]
 #[cfg(feature = "profiling_enabled")]

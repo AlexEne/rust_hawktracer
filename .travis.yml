@@ -9,3 +9,4 @@ matrix:
 script:
   - cargo build --verbose --all
   - cargo test --features=generate_bindings,profiling_enabled
+  - cargo test --features=generate_bindings
