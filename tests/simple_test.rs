@@ -22,7 +22,7 @@ fn do_work(){
 fn tracing_test_to_file() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
-    let hawktracer_instance = HawktracerInstance::new();
+    let mut hawktracer_instance = HawktracerInstance::new();
     let _listener = hawktracer_instance.create_listener(HawktracerListenerType::ToFile {
         file_path: file_name.into(),
         buffer_size: 4096,
@@ -40,7 +40,7 @@ fn tracing_test_to_file() {
 
 #[test]
 fn tracing_test_network() {
-    let hawktracer_instance = HawktracerInstance::new();
+    let mut hawktracer_instance = HawktracerInstance::new();
     let _listener = hawktracer_instance.create_listener(HawktracerListenerType::TCP {
         port: 12345,
         buffer_size: 4096,
