@@ -32,13 +32,14 @@ use rust_hawktracer::*;
 use std::{thread, time};
 
 fn main() {
-    let _listener = create_hawktracer_listener(HawktracerListenerType::ToFile {
+    let mut instance = HawktracerInstance::new();
+    let _listener = instance.create_listener(HawktracerListenerType::ToFile {
         file_path: "trace.bin".into(),
         buffer_size: 4096,
     });
 
     // For a networked listner
-    // let _listener = create_hawktracer_listener(HawktracerListenerType::TCP {
+    // let _listener = instance.create_listener(HawktracerListenerType::TCP {
     //     port: 12345,
     //     buffer_size: 4096,
     // });
