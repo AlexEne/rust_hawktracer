@@ -39,7 +39,7 @@ fn main() {
 
     // For a networked listner
     // let _instance = create_hawktracer_instance(HawktracerInstanceType::TCP {
-    //     port: 45332,
+    //     port: 12345,
     //     buffer_size: 4096,
     // });
 
@@ -60,10 +60,15 @@ fn main() {
 
 ## Visualization
 
-Download _hawktracer-converter.exe_ and use it like this:
-
+Download _hawktracer-converter.exe_ and use it like this:  
+If you use ```HawktracerInstanceType::ToFile```:  
 ```
 .\hawktracer-converter.exe --source trace.bin --output trace.json
+```
+
+If you use ```HawktracerInstanceType::TCP``` you can listen and capture traces by specifying the IP:port as the ```--source``` parameter:  
+```
+.\hawktracer-converter.exe --source 127.0.0.1:12345 --output trace_12345.json
 ```
 
 Open a chrome browser and go to this address: ```chrome://tracing/```
