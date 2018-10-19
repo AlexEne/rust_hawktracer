@@ -29,7 +29,7 @@ impl HawktracerInstance {
     }
 
     pub fn create_listener<'a>(
-        &'a self,
+        &'a mut self,
         listener_type: HawktracerListenerType,
     ) -> Box<HawktracerListener<'a>> {
         use internals::hawktracer_listener_file::HawktracerListenerFile;
@@ -65,5 +65,5 @@ impl HawktracerInstance {
         HawktracerInstance {}
     }
 
-    pub fn create_listener(&self, _listener_type: HawktracerListenerType) {}
+    pub fn create_listener(&mut self, _listener_type: HawktracerListenerType) {}
 }
