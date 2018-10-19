@@ -1,5 +1,6 @@
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
+#[allow(unused_imports)]
 use super::hawktracer_listener::*;
 use std::path::PathBuf;
 
@@ -29,7 +30,7 @@ impl HawktracerInstance {
     }
 
     pub fn create_listener<'a>(
-        &'a mut self,
+        &'a self,
         listener_type: HawktracerListenerType,
     ) -> Box<HawktracerListener<'a>> {
         use internals::hawktracer_listener_file::HawktracerListenerFile;
@@ -65,5 +66,5 @@ impl HawktracerInstance {
         HawktracerInstance {}
     }
 
-    pub fn create_listener(&mut self, _listener_type: HawktracerListenerType) {}
+    pub fn create_listener(&self, _listener_type: HawktracerListenerType) {}
 }
