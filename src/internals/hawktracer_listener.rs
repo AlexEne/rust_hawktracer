@@ -1,1 +1,1 @@
-pub trait HawktracerListener {}
+pub trait HawktracerListener<'a> {}

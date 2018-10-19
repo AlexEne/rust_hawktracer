@@ -3,7 +3,7 @@ use super::hawktracer_listener::*;
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
 #[cfg(feature = "profiling_enabled")]
-impl HawktracerListener for HawktracerListenerTCP {}
+impl<'a> HawktracerListener<'a> for HawktracerListenerTCP {}
 
 #[cfg(feature = "profiling_enabled")]
 pub struct HawktracerListenerTCP {

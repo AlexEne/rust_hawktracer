@@ -9,7 +9,7 @@ pub struct HawktracerListenerFile {
 }
 
 #[cfg(feature = "profiling_enabled")]
-impl HawktracerListener for HawktracerListenerFile {}
+impl<'a> HawktracerListener<'a> for HawktracerListenerFile {}
 
 #[cfg(feature = "profiling_enabled")]
 impl HawktracerListenerFile {
