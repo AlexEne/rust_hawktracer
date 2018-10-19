@@ -1,14 +1,24 @@
+#[macro_use]
+extern crate lazy_static;
+
 #[allow(dead_code)]
 mod internals;
 
 #[allow(unused_imports)]
-use internals::base_instance::HawktracerInstance;
+use internals::hawktracer_listener::HawktracerListener;
 
 use std::path::PathBuf;
+use internals::hawktracer_instance::HawktracerInstance;
 
 pub use internals::scoped_tracepoint::ScopedTracepoint;
 
-pub enum HawktracerInstanceType {
+lazy_static! {
+    static ref HT_INSTANCE: HawktracerInstance = {
+        HawktracerInstance::new()
+    };
+}
+
+pub enum HawktracerListenerType {
     ToFile {
         file_path: PathBuf,
         buffer_size: usize,
@@ -21,23 +31,26 @@ pub enum HawktracerInstanceType {
 
 #[cfg(feature = "profiling_enabled")]
 pub fn create_hawktracer_instance(
-    instance_type: HawktracerInstanceType,
-) -> Box<HawktracerInstance> {
+    listener_type: HawktracerListenerType,
+) -> Box<HawktracerListener> {
     use std::boxed::Box;
-    use internals::hawktracer_instance_file::HawktracerInstanceFile;
-    use internals::hawktracer_instance_tcp::HawktracerInstanceTCP;
+    use internals::hawktracer_listener_file::HawktracerListenerFile;
+    use internals::hawktracer_listener_tcp::HawktracerListenerTCP;
+    
+    //I need to trigger the static global initialization somehow.
+    let _touch = HT_INSTANCE.touch();
 
-    let instance: Box<HawktracerInstance> = match instance_type {
-        HawktracerInstanceType::ToFile {
+    let listener: Box<HawktracerListener> = match listener_type {
+        HawktracerListenerType::ToFile {
             file_path,
             buffer_size,
-        } => Box::new(HawktracerInstanceFile::new(file_path, buffer_size)),
-        HawktracerInstanceType::TCP { port, buffer_size } => {
-            Box::new(HawktracerInstanceTCP::new(port, buffer_size))
+        } => Box::new(HawktracerListenerFile::new(file_path, buffer_size)),
+        HawktracerListenerType::TCP { port, buffer_size } => {
+            Box::new(HawktracerListenerTCP::new(port, buffer_size))
         }
     };
 
-    instance
+    listener
 }
 
 #[macro_export]
@@ -59,4 +72,4 @@ macro_rules! scoped_tracepoint {
 }
 
 #[cfg(not(feature = "profiling_enabled"))]
-pub fn create_hawktracer_instance(_instance_type: HawktracerInstanceType) {}
+pub fn create_hawktracer_instance(_instance_type: HawktracerListenerType) {}

@@ -8,7 +8,7 @@ use std::fs;
 fn tracing_test_to_file() {
     let file_name = "file_name.htdump";
     fs::remove_file(file_name);
-    let _instance = create_hawktracer_instance(HawktracerInstanceType::ToFile {
+    let _instance = create_hawktracer_instance(HawktracerListenerType::ToFile {
         file_path: file_name.into(),
         buffer_size: 4096,
     });
@@ -32,10 +32,11 @@ fn tracing_test_to_file() {
 }
 
 
+
 #[test]
 fn tracing_test_network() {
-    let _instance = create_hawktracer_instance(HawktracerInstanceType::TCP {
-        port: 35445,
+    let _instance = create_hawktracer_instance(HawktracerListenerType::TCP {
+        port: 12345,
         buffer_size: 4096,
     });
 

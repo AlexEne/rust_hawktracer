@@ -1,30 +1,23 @@
-#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
-
-use super::base_instance::*;
+use super::hawktracer_listener::*;
 #[allow(unused_imports)]
 use std::path::PathBuf;
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
 #[cfg(feature = "profiling_enabled")]
-pub struct HawktracerInstanceFile {
+pub struct HawktracerListenerFile {
     listener: *mut _HT_FileDumpListener,
 }
 
 #[cfg(feature = "profiling_enabled")]
-impl HawktracerInstance for HawktracerInstanceFile {}
+impl HawktracerListener for HawktracerListenerFile {}
 
 #[cfg(feature = "profiling_enabled")]
-impl HawktracerInstanceFile {
-    pub fn new(file_path: PathBuf, buffer_size: usize) -> HawktracerInstanceFile {
+impl HawktracerListenerFile {
+    pub fn new(file_path: PathBuf, buffer_size: usize) -> HawktracerListenerFile {
         let string_path = file_path.into_os_string().into_string().unwrap();
         let file_path = std::ffi::CString::new(string_path).unwrap();
-        use std::os::raw::c_char;
         use std;
-        let p: *mut *mut c_char = std::ptr::null_mut();
         let listener = unsafe {
-            ht_init(0, p);
             let listener = ht_file_dump_listener_create(
                 file_path.as_ptr(),
                 buffer_size,
@@ -40,18 +33,17 @@ impl HawktracerInstanceFile {
             listener
         };
 
-        HawktracerInstanceFile { listener: listener }
+        HawktracerListenerFile { listener: listener }
     }
 }
 
 #[cfg(feature = "profiling_enabled")]
-impl Drop for HawktracerInstanceFile {
+impl Drop for HawktracerListenerFile {
     fn drop(&mut self) {
         unsafe {
             ht_timeline_flush(ht_global_timeline_get());
             ht_timeline_unregister_all_listeners(ht_global_timeline_get());
             ht_file_dump_listener_destroy(self.listener);
-            ht_deinit();
         }
     }
 }
