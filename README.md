@@ -32,7 +32,7 @@ use rust_hawktracer::*;
 use std::{thread, time};
 
 fn main() {
-    let mut instance = HawktracerInstance::new();
+    let instance = HawktracerInstance::new();
     let _listener = instance.create_listener(HawktracerListenerType::ToFile {
         file_path: "trace.bin".into(),
         buffer_size: 4096,
