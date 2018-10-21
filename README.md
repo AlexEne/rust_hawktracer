@@ -3,24 +3,33 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/3nejp7wvwddq5wnq?svg=true)](https://ci.appveyor.com/project/AlexEne/rust-hawktracer)
 
 # rust_hawktracer
-Rust bindings for Amazon's Hawktracer profiler.
-This offers simple, minimal bindings to help you profile your programs.
+Rust bindings for the [Hawktracer](https://github.com/amzn/hawktracer) profiler.  
+This crate offers simple, minimal bindings to help you profile your rust programs.  
+If profiling is not enabled by specifying ```features=["profiling_enabled"]```, having tracepoints in your code has absolutely no overhead (everything gets removed at compile time).
 
 
 ![alt text](https://github.com/AlexEne/alexene.github.io/raw/master/images/rust_hawktracer/demo.png)
 
 
-## Warning
-You need an external tool in order to transform bindings from a binary format to something that can be interpreted by __chrome:://tracing__
-This tool can be build for now from the main hawktracer repo (client/hawktracer-to-json).
-I recommend taking the binaries from the official rust_hawktracer releases: https://github.com/amzn/hawktracer/releases/tag/v0.6.0
+## Tools needed
 
-## How to use
+You need an external tool in order to transform captured profiling data from a binary format to something that can be interpreted by __chrome:://tracing__ (or other clients).
+
+I recommend downloading the binaries from the official [hawktracer release](https://github.com/amzn/hawktracer/releases/tag/v0.6.0).
+ 
+For platforms that don't have a binary release you can build it from the main [hawktracer repo](https://github.com/amzn/hawktracer).  
+
+## Profiling code
 In Cargo.toml:
 ```toml
 [dependencies.rust_hawktracer]
-version = "0.3.0"
+version = "0.3.1"
 features=["profiling_enabled"]
+```
+
+If the bindings that come with it don't match what your platform expects change it to:  
+```toml
+features=["profiling_enabled", "generate_bindings"]
 ```
 
 In your main.rs:
@@ -32,7 +41,7 @@ use rust_hawktracer::*;
 use std::{thread, time};
 
 fn main() {
-    let mut instance = HawktracerInstance::new();
+    let instance = HawktracerInstance::new();
     let _listener = instance.create_listener(HawktracerListenerType::ToFile {
         file_path: "trace.bin".into(),
         buffer_size: 4096,
@@ -61,7 +70,6 @@ fn main() {
 
 ## Visualization
 
-Download _hawktracer-converter.exe_ and use it like this:  
 If you use ```HawktracerListenerType::ToFile```:  
 ```
 .\hawktracer-converter.exe --source trace.bin --output trace.json
@@ -69,20 +77,19 @@ If you use ```HawktracerListenerType::ToFile```:
 
 If you use ```HawktracerListenerType::TCP``` you can listen and capture traces by specifying the IP:port as the ```--source``` parameter:  
 ```
-.\hawktracer-converter.exe --source 127.0.0.1:12345 --output trace_12345.json
+.\hawktracer-converter.exe --source 127.0.0.1:12345 --output trace.json
 ```
 
 Open a chrome browser and go to this address: ```chrome://tracing/```
 
-For the program above you should see the following trace:
+By opening the ```trace.json``` for the program above you should see something like:
 
 ![alt text](https://github.com/AlexEne/alexene.github.io/raw/master/images/rust_hawktracer/trace_demo.png)
 
 
-## Things to watch out for.
+## Things to watch out for
 
-In rust macros I can't create new variable names right now, this means that if you want to avoid warnings, the tracepoint variable names have to start with a leading ```_```, as in ```scoped_tracepoint!(_second_tracepoint)```.
-If you figure out a way to do this, feel free to raise a PR / issue.
+In rust macros I can't create new identifier names. This means that if you want to avoid warnings, the tracepoint names have to start with a leading ```_```, as in ```scoped_tracepoint!(_my_tracepoint_name)```.
 
 ## License
 
