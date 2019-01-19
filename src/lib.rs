@@ -2,11 +2,11 @@
 mod internals;
 
 #[allow(unused_imports)]
-use internals::hawktracer_listener::HawktracerListener;
+use crate::internals::hawktracer_listener::HawktracerListener;
 
-pub use internals::scoped_tracepoint::ScopedTracepoint;
-pub use internals::hawktracer_instance::HawktracerListenerType;
-pub use internals::hawktracer_instance::HawktracerInstance;
+pub use crate::internals::scoped_tracepoint::ScopedTracepoint;
+pub use crate::internals::hawktracer_instance::HawktracerListenerType;
+pub use crate::internals::hawktracer_instance::HawktracerInstance;
 
 #[macro_export]
 #[cfg(feature = "profiling_enabled")]

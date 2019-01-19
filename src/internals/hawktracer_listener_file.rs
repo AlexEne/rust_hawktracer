@@ -16,7 +16,6 @@ impl HawktracerListenerFile {
     pub fn new(file_path: PathBuf, buffer_size: usize) -> HawktracerListenerFile {
         let string_path = file_path.into_os_string().into_string().unwrap();
         let file_path = std::ffi::CString::new(string_path).unwrap();
-        use std;
         let listener = unsafe {
             let listener = ht_file_dump_listener_create(
                 file_path.as_ptr(),

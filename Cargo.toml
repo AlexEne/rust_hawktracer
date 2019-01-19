@@ -10,6 +10,7 @@ categories = ["development-tools::profiling"]
 repository = "https://github.com/AlexEne/rust_hawktracer"
 readme = "README.md"
 license = "MIT/Apache-2.0"
+edition = "2018"
 
 [build-dependencies]
 cmake = "0.1"

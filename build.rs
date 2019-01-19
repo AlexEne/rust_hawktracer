@@ -3,7 +3,7 @@ extern crate bindgen;
 extern crate cmake;
 
 use std::env;
-use std::path::{PathBuf, Path};
+use std::path::{PathBuf};
 use std::fs;
 
 //In order to build 64 bit hawktracer:

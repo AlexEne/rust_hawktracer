@@ -2,12 +2,12 @@ extern crate rust_hawktracer;
 use rust_hawktracer::*;
 use std::fs;
 mod utils;
-use utils::*;
+use crate::utils::*;
 
 #[test]
 fn tracing_test_to_file() {
     let file_name = "file_name.htdump";
-    fs::remove_file(file_name);
+    fs::remove_file(file_name).unwrap();
     let hawktracer_instance = HawktracerInstance::new();
     let _listener = hawktracer_instance.create_listener(HawktracerListenerType::ToFile {
         file_path: file_name.into(),
