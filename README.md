@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/3nejp7wvwddq5wnq?svg=true)](https://ci.appveyor.com/project/AlexEne/rust-hawktracer)
 
 # rust_hawktracer
-Rust bindings for the [Hawktracer](https://github.com/amzn/hawktracer) profiler.  
+Rust bindings for the [Hawktracer](https://github.com/loganek/hawktracer) profiler.  
 This crate offers simple, minimal bindings to help you profile your rust programs.  
 If profiling is not enabled by specifying ```features=["profiling_enabled"]```, having tracepoints in your code has absolutely no overhead (everything gets removed at compile time).
 
@@ -15,9 +15,9 @@ If profiling is not enabled by specifying ```features=["profiling_enabled"]```, 
 
 You need an external tool in order to transform captured profiling data from a binary format to something that can be interpreted by __chrome:://tracing__ (or other clients).
 
-I recommend downloading the binaries from the official [hawktracer release](https://github.com/amzn/hawktracer/releases/tag/v0.6.0).
+I recommend downloading the binaries from the official [hawktracer release](https://github.com/loganek/hawktracer/releases/tag/v0.7.0).
  
-For platforms that don't have a binary release you can build it from the main [hawktracer repo](https://github.com/amzn/hawktracer).  
+For platforms that don't have a binary release you can build it from the main [hawktracer repo](https://github.com/loganek/hawktracer).  
 
 ## Profiling code
 In Cargo.toml:
