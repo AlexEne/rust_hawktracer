@@ -23,7 +23,7 @@ For platforms that don't have a binary release you can build it from the main [h
 In Cargo.toml:
 ```toml
 [dependencies.rust_hawktracer]
-version = "0.3.1"
+version = "0.4.0"
 features=["profiling_enabled"]
 ```
 
