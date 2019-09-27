@@ -8,7 +8,7 @@ use crate::utils::*;
 #[test]
 fn tracing_test_two_listeners() {
     let file_name = "file_name.htdump";
-    fs::remove_file(file_name).unwrap();
+    fs::remove_file(file_name).unwrap_or_default();
     
     let hawktracer_instance = HawktracerInstance::new();
     let _file_listener = hawktracer_instance.create_listener(HawktracerListenerType::ToFile {
