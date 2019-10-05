@@ -23,6 +23,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: checkout
+      run: git submodule update --init 
     - name: install_dependencies
       run: | 
         brew install rustup
