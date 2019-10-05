@@ -53,6 +53,7 @@ fn main() {
         }
 
         #[cfg(not(debug_assertions))] {
+            use std::path::Path;
             build_output_path.push("Release");
             if !Path::new(&build_output_path).exists() {
                 //If debug = true is specified, then this generates RelWithDebInfo.
