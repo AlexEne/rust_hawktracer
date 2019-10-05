@@ -3,11 +3,11 @@ name: Rust
 on: [push]
 
 jobs:
-  Test:
+  Test_Linux:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-16.04, ubuntu-18.04, windows-2016]
+        os: [ubuntu-16.04, ubuntu-18.04]
     
     steps:
     - uses: actions/checkout@v1
@@ -18,7 +18,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
   
-  test_MacOS:
+  Test_MacOS:
     runs-on: macOS-latest
     
     steps:
@@ -37,3 +37,15 @@ jobs:
       run: |
         export PATH="$HOME/.cargo/bin:$PATH"
         cargo test
+
+  Test_Windows:
+    runs-on: windows-2016
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Checkout
+      run: git submodule update --init
+    - name: Build
+      run: cargo build --verbose --features generate_bindings
+    - name: Run tests
+      run: cargo test --verbose
