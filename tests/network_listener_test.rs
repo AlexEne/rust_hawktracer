@@ -1,7 +1,7 @@
 extern crate rust_hawktracer;
 use rust_hawktracer::*;
 mod utils;
-use utils::*;
+use crate::utils::*;
 
 #[test]
 fn tracing_test_network() {

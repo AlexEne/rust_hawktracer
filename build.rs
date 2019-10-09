@@ -3,7 +3,7 @@ extern crate bindgen;
 extern crate cmake;
 
 use std::env;
-use std::path::{PathBuf, Path};
+use std::path::{PathBuf};
 use std::fs;
 
 //In order to build 64 bit hawktracer:
@@ -53,6 +53,7 @@ fn main() {
         }
 
         #[cfg(not(debug_assertions))] {
+            use std::path::Path;
             build_output_path.push("Release");
             if !Path::new(&build_output_path).exists() {
                 //If debug = true is specified, then this generates RelWithDebInfo.

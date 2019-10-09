@@ -13,8 +13,6 @@ pub struct HawktracerListenerTCP {
 #[cfg(feature = "profiling_enabled")]
 impl HawktracerListenerTCP {
     pub fn new(port: u32, buffer_size: usize) -> HawktracerListenerTCP {
-        use std;
-
         let listener = unsafe {
             let listener = ht_tcp_listener_create(
                 port as i32,

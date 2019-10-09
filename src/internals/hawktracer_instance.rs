@@ -20,7 +20,6 @@ pub enum HawktracerListenerType {
 #[cfg(feature = "profiling_enabled")]
 impl HawktracerInstance {
     pub fn new() -> HawktracerInstance {
-        use std;
         use std::os::raw::c_char;
         let p: *mut *mut c_char = std::ptr::null_mut();
         unsafe {
@@ -32,12 +31,11 @@ impl HawktracerInstance {
     pub fn create_listener<'a>(
         &'a self,
         listener_type: HawktracerListenerType,
-    ) -> Box<HawktracerListener<'a>> {
-        use internals::hawktracer_listener_file::HawktracerListenerFile;
-        use internals::hawktracer_listener_tcp::HawktracerListenerTCP;
-        use std::boxed::Box;
+    ) -> Box<dyn HawktracerListener<'a>> {
+        use super::hawktracer_listener_file::HawktracerListenerFile;
+        use super::hawktracer_listener_tcp::HawktracerListenerTCP;
 
-        let listener: Box<HawktracerListener> = match listener_type {
+        let listener: Box<dyn HawktracerListener> = match listener_type {
             HawktracerListenerType::ToFile {
                 file_path,
                 buffer_size,

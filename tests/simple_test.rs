@@ -2,13 +2,13 @@ extern crate rust_hawktracer;
 use rust_hawktracer::*;
 use std::fs;
 mod utils;
-use utils::*;
+use crate::utils::*;
 
 // TODO figure out how to allow this. for now it requires a mutable borrow on instance
 #[test]
 fn tracing_test_two_listeners() {
     let file_name = "file_name.htdump";
-    fs::remove_file(file_name);
+    fs::remove_file(file_name).unwrap_or_default();
     
     let hawktracer_instance = HawktracerInstance::new();
     let _file_listener = hawktracer_instance.create_listener(HawktracerListenerType::ToFile {
