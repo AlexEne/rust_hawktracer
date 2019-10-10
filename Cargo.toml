@@ -2,8 +2,6 @@
 name = "rust_hawktracer"
 version = "0.4.0"
 authors = ["Alexandru Ene <alex.ene0x11@gmail.com>"]
-build = "build.rs"
-links = "hawktracer"
 description = "Rust bindings for hawktracer profiling library."
 keywords = ["profiling"]
 categories = ["development-tools::profiling"]
@@ -15,10 +13,21 @@ edition = "2018"
 [build-dependencies]
 cmake = "0.1"
 
-[build-dependencies.bindgen]
-version = "0.37.0"
-optional = true
-
 [features]
 profiling_enabled = []
-generate_bindings=["bindgen"]
+generate_bindings=[]
+
+[dependencies.rust_hawktracer_normal_macro]
+version = "0.1"
+path = "../rust_hawktracer_normal_macro"
+features = ["profiling_enabled", "generate_bindings"]
+
+[dependencies.rust_hawktracer_proc_macro]
+version = "0.1"
+path = "../rust_hawktracer_proc_macro"
+features = ["profiling_enabled"]
+
+[dependencies.rust_hawktracer_sys]
+version = "0.1"
+path = "../rust_hawktracer_sys"
+features = ["profiling_enabled"]
