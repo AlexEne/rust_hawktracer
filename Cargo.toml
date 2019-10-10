@@ -26,8 +26,3 @@ features = ["profiling_enabled", "generate_bindings"]
 version = "0.1"
 path = "../rust_hawktracer_proc_macro"
 features = ["profiling_enabled"]
-
-[dependencies.rust_hawktracer_sys]
-version = "0.1"
-path = "../rust_hawktracer_sys"
-features = ["profiling_enabled"]
