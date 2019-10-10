@@ -14,15 +14,13 @@ edition = "2018"
 cmake = "0.1"
 
 [features]
-profiling_enabled = []
-generate_bindings=[]
+profiling_enabled = ["rust_hawktracer_normal_macro/profiling_enabled", "rust_hawktracer_proc_macro/profiling_enabled"]
+generate_bindings = ["rust_hawktracer_normal_macro/generate_bindings"]
 
 [dependencies.rust_hawktracer_normal_macro]
 version = "0.1"
 path = "../rust_hawktracer_normal_macro"
-features = ["profiling_enabled", "generate_bindings"]
 
 [dependencies.rust_hawktracer_proc_macro]
 version = "0.1"
 path = "../rust_hawktracer_proc_macro"
-features = ["profiling_enabled"]
