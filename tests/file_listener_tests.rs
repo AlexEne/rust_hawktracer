@@ -21,4 +21,9 @@ fn tracing_test_to_file() {
         assert!(std::path::Path::new(file_name).exists());
         fs::remove_file(file_name);
     }
+    
+    #[cfg(not(feature = "profiling_enabled"))]
+    {
+        assert!(!std::path::Path::new(file_name).exists());
+    }
 }
