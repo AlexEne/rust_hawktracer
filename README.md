@@ -1,5 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/rust_hawktracer.svg)](https://crates.io/crates/rust_hawktracer)
-[![](https://github.com/AlexEne/rust_hawktracer/workflows/Tests/badge.svg)](https://github.com/AlexEne/rust_hawktracer/actions)
+[![](https://github.com/AlexEne/rust_hawktracer/workflows/Build/badge.svg)](https://github.com/AlexEne/rust_hawktracer/actions)
+[![](https://github.com/AlexEne/rust_hawktracer/workflows/Test/badge.svg)](https://github.com/AlexEne/rust_hawktracer/actions)
+
 
 # rust_hawktracer
 Rust bindings for the [Hawktracer](https://github.com/loganek/hawktracer) profiler.  
