@@ -1,0 +1,50 @@
+name: Test
+
+on: [push]
+
+jobs:
+  Test_Linux:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+        test_features: ["", "--features=profiling_enabled"]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Checkout
+      run: git submodule update --init
+    - name: Run tests
+      run: cargo test --verbose ${{ matrix.test_features }}
+  
+  Test_MacOS:
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        test_features: ["", "--features=profiling_enabled"]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: checkout
+      run: git submodule update --init 
+    - name: install_dependencies
+      run: | 
+        brew install rustup
+        rustup-init -y --default-toolchain stable        
+    - name: Test
+      run: |
+        export PATH="$HOME/.cargo/bin:$PATH"
+        cargo test ${{ matrix.test_features }}
+
+  Test_Windows:
+    runs-on: windows-2016
+    strategy:
+      matrix:
+        test_features: ["", "--features=profiling_enabled"]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Checkout
+      run: git submodule update --init
+    - name: Run tests
+      run: cargo test --verbose ${{ matrix.test_features }}
