@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "D:\\__Projects__\\Rust\\hawktracer_demo"
+		},
+		{
+			"path": "D:\\__Projects__\\Rust\\rust_hawktracer_sys"
+		},
+		{
+			"path": "D:\\__Projects__\\Rust\\rust_hawktracer_normal_macro"
+		},
+		{
+			"path": "D:\\__Projects__\\Rust\\rust_hawktracer_proc_macro"
+		}
+	],
+	"settings": {}
+}
