@@ -1,6 +1,5 @@
 [![Crates.io](https://img.shields.io/crates/v/rust_hawktracer.svg)](https://crates.io/crates/rust_hawktracer)
-[![Build Status](https://travis-ci.org/AlexEne/rust_hawktracer.svg?branch=master)](https://travis-ci.org/AlexEne/rust_hawktracer)
-[![Build status](https://ci.appveyor.com/api/projects/status/3nejp7wvwddq5wnq?svg=true)](https://ci.appveyor.com/project/AlexEne/rust-hawktracer)
+[![](https://github.com/AlexEne/rust_hawktracer/workflows/Tests/badge.svg)](https://github.com/AlexEne/rust_hawktracer/actions)
 
 # rust_hawktracer
 Rust bindings for the [Hawktracer](https://github.com/loganek/hawktracer) profiler.  
@@ -20,14 +19,14 @@ I recommend downloading the binaries from the official [hawktracer release](http
 For platforms that don't have a binary release you can build it from the main [hawktracer repo](https://github.com/loganek/hawktracer).  
 
 ## Profiling code
-In Cargo.toml:
+In `Cargo.toml`:
 ```toml
 [dependencies.rust_hawktracer]
 version = "0.4.0"
 features=["profiling_enabled"]
 ```
 
-If the bindings that come with it don't match what your platform expects change it to:  
+If the bindings that come with it don't match what your platform expects change it to:
 ```toml
 features=["profiling_enabled", "generate_bindings"]
 ```
@@ -39,6 +38,11 @@ In your main.rs:
 extern crate rust_hawktracer;
 use rust_hawktracer::*;
 use std::{thread, time};
+
+#[hawktracer(trace_this)]
+fn method_to_trace() {
+    thread::sleep(time::Duration::from_millis(1));
+}
 
 fn main() {
     let instance = HawktracerInstance::new();
@@ -89,7 +93,8 @@ By opening the ```trace.json``` for the program above you should see something l
 
 ## Things to watch out for
 
-In rust macros I can't create new identifier names. This means that if you want to avoid warnings, the tracepoint names have to start with a leading ```_```, as in ```scoped_tracepoint!(_my_tracepoint_name)```.
+In rust macros I can't create new identifier names. This means that if you want to avoid warnings, the tracepoint names have to start with a leading ```_```, as in ```scoped_tracepoint!(_my_tracepoint_name)```.  
+This doesn't apply to the function annotations.
 
 ## License
 
