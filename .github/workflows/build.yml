@@ -1,4 +1,4 @@
-name: Tests
+name: Build
 
 on: [push]
 
@@ -9,23 +9,19 @@ jobs:
       matrix:
         os: [ubuntu-16.04, ubuntu-18.04]
         features: ["", "--features=generate_bindings", "--features=profiling_enabled", "--features=profiling_enabled,generate_bindings"]
-        test_features: ["", "--features=profiling_enabled"]
-    
+   
     steps:
     - uses: actions/checkout@v1
     - name: Checkout
       run: git submodule update --init
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
-    - name: Run tests
-      run: cargo test --verbose ${{ matrix.test_features }}
   
   Test_MacOS:
     runs-on: macOS-latest
     strategy:
       matrix:
         features: ["", "--features=generate_bindings", "--features=profiling_enabled", "--features=profiling_enabled,generate_bindings"]
-        test_features: ["", "--features=profiling_enabled"]
     
     steps:
     - uses: actions/checkout@v1
@@ -39,17 +35,12 @@ jobs:
       run: |
         export PATH="$HOME/.cargo/bin:$PATH"
         cargo build --verbose ${{ matrix.features }}
-    - name: Test
-      run: |
-        export PATH="$HOME/.cargo/bin:$PATH"
-        cargo test ${{ matrix.test_features }}
 
   Test_Windows:
     runs-on: windows-2016
     strategy:
       matrix:
         features: ["", "--features=profiling_enabled"]
-        test_features: ["", "--features=profiling_enabled"]
     
     steps:
     - uses: actions/checkout@v1
@@ -57,5 +48,3 @@ jobs:
       run: git submodule update --init
     - name: Build
       run: cargo build --verbose ${{ matrix.features }}
-    - name: Run tests
-      run: cargo test --verbose ${{ matrix.test_features }}
