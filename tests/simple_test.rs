@@ -16,10 +16,13 @@ fn tracing_test_two_listeners() {
         buffer_size: 4096,
     });
 
-    let _network_listener = hawktracer_instance.create_listener(HawktracerListenerType::TCP {
-        port: 12344,
-        buffer_size: 4096,
-    });
+    #[cfg(not(target_os = "macos"))]
+    {
+        let _network_listener = hawktracer_instance.create_listener(HawktracerListenerType::TCP {
+            port: 12344,
+            buffer_size: 4096,
+        });
+    }
 
     do_work();
 
