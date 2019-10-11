@@ -19,8 +19,6 @@ generate_bindings = ["rust_hawktracer_normal_macro/generate_bindings"]
 
 [dependencies.rust_hawktracer_normal_macro]
 version = "0.1"
-path = "../rust_hawktracer_normal_macro"
 
 [dependencies.rust_hawktracer_proc_macro]
 version = "0.1"
-path = "../rust_hawktracer_proc_macro"
