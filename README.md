@@ -21,7 +21,7 @@ You need an external tool in order to transform captured profiling data from a b
 In `Cargo.toml`:
 ```toml
 [dependencies.rust_hawktracer]
-version = "0.5.0"
+version = "0.6"
 features=["profiling_enabled"]
 ```
 
