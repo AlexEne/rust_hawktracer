@@ -16,10 +16,7 @@ If profiling is not enabled by specifying ```features=["profiling_enabled"]```, 
 
 You need an external tool in order to transform captured profiling data from a binary format to something that can be interpreted by __chrome:://tracing__ (or other clients).
 
-I recommend downloading the binaries from the official [hawktracer release](https://github.com/loganek/hawktracer/releases/tag/v0.7.0).
  
-For platforms that don't have a binary release you can build it from the main [hawktracer repo](https://github.com/loganek/hawktracer).  
-
 ## Profiling code
 In `Cargo.toml`:
 ```toml
@@ -75,6 +72,9 @@ fn main() {
 ```
 
 ## Visualization
+
+I recommend getting `hawktracer_converter` using `cargo install hawktracer-converter` as described [here](https://github.com/loganek/hawktracer-converter). 
+
 
 If you use ```HawktracerListenerType::ToFile```:  
 ```
