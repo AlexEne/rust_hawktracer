@@ -10,9 +10,6 @@ readme = "README.md"
 license = "MIT/Apache-2.0"
 edition = "2018"
 
-[build-dependencies]
-cmake = "0.1"
-
 [features]
 profiling_enabled = ["rust_hawktracer_normal_macro/profiling_enabled", "rust_hawktracer_proc_macro/profiling_enabled"]
 generate_bindings = ["rust_hawktracer_normal_macro/generate_bindings"]
