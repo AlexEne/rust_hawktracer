@@ -12,8 +12,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Checkout
-      run: git submodule update --init
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
@@ -28,8 +26,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Checkout
-      run: git submodule update --init
     - name: Install_Hawktracer
       run: ls && cd hawktracer && cmake . && make && sudo make install
     - name: Build
@@ -45,8 +41,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: checkout
-      run: git submodule update --init 
     - name: install_dependencies
       run: | 
         brew install rustup
@@ -68,8 +62,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Checkout
-      run: git submodule update --init
     - name: Build
       run: cargo build --verbose ${{ matrix.features }}
     - name: Run tests
