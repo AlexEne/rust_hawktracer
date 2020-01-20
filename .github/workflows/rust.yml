@@ -18,6 +18,24 @@ jobs:
       run: cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
       run: cargo test --verbose
+      
+  Test_Linux_pkg_config:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+        features: ["", "--features=generate_bindings,pkg_config", "--features=profiling_enabled,pkg_config", "--features=profiling_enabled,generate_bindings,pkg_config"]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Checkout
+      run: git submodule update --init
+    - name: Install_Hawktracer
+      run: cd hawktracer && cmake . && make && sudo make install
+    - name: Build
+      run: cargo build --verbose  ${{ matrix.features }}
+    - name: Run tests
+      run: cargo test --verbose
   
   Test_MacOS:
     runs-on: macOS-latest
