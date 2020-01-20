@@ -31,7 +31,7 @@ jobs:
     - name: Checkout
       run: git submodule update --init
     - name: Install_Hawktracer
-      run: cd hawktracer && cmake . && make && sudo make install
+      run: ls && cd hawktracer && cmake . && make && sudo make install
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
