@@ -1,6 +1,6 @@
 name: Tests
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   Test_Linux:
@@ -12,10 +12,26 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Checkout
-      run: git submodule update --init
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
+    - name: Run tests
+      run: cargo test --verbose
+      
+  Test_Linux_pkg_config:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04]
+        features: ["", "--features=generate_bindings,pkg_config", "--features=profiling_enabled,pkg_config", "--features=profiling_enabled,generate_bindings,pkg_config"]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: clone_hawktracer
+      run: git clone https://github.com/amzn/hawktracer.git --branch v0.10.0 --depth 1
+    - name: install_hawktracer
+      run: ls && cd hawktracer && cmake . && make && sudo make install && cd ..
+    - name: Build
+      run: echo $PATH && cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
       run: cargo test --verbose
   
@@ -27,8 +43,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: checkout
-      run: git submodule update --init 
     - name: install_dependencies
       run: | 
         brew install rustup
@@ -50,8 +64,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Checkout
-      run: git submodule update --init
     - name: Build
       run: cargo build --verbose ${{ matrix.features }}
     - name: Run tests
