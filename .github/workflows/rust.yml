@@ -28,7 +28,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: clone_hawktracer
       run: git clone https://github.com/amzn/hawktracer.git --branch v0.10.0 --depth 1
-    - name: Install_Hawktracer
+    - name: install_hawktracer
       run: ls && cd hawktracer && cmake . && make && sudo make install
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
