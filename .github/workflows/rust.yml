@@ -29,7 +29,7 @@ jobs:
     - name: clone_hawktracer
       run: git clone https://github.com/amzn/hawktracer.git --branch v0.10.0 --depth 1
     - name: install_hawktracer
-      run: ls && cd hawktracer && cmake . && make && sudo make install
+      run: ls && cd hawktracer && cmake . && make && sudo make install && cd ..
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
