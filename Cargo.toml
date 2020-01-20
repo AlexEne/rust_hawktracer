@@ -13,6 +13,7 @@ edition = "2018"
 [features]
 profiling_enabled = ["rust_hawktracer_normal_macro/profiling_enabled", "rust_hawktracer_proc_macro/profiling_enabled"]
 generate_bindings = ["rust_hawktracer_normal_macro/generate_bindings"]
+pkg_config = ["rust_hawktracer_normal_macro/pkg_config"]
 
 [dependencies.rust_hawktracer_normal_macro]
 version = "0.4"
