@@ -9,44 +9,44 @@ jobs:
       matrix:
         os: [ubuntu-16.04, ubuntu-18.04]
         features: ["", "--features=generate_bindings", "--features=profiling_enabled", "--features=profiling_enabled,generate_bindings"]
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Build
       run: cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
       run: cargo test --verbose
-      
+
   Test_Linux_pkg_config:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-16.04, ubuntu-18.04]
         features: ["", "--features=generate_bindings,pkg_config", "--features=profiling_enabled,pkg_config", "--features=profiling_enabled,generate_bindings,pkg_config"]
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: clone_hawktracer
       run: git clone https://github.com/amzn/hawktracer.git --branch v0.10.0 --depth 1
     - name: install_hawktracer
-      run: ls && cd hawktracer && cmake . && make && sudo make install && cd ..
+      run: ls && cd hawktracer && cmake -DENABLE_CLIENT=OFF -DCMAKE_INSTALL_PREFIX=/usr/local . && make && sudo make install && cd ..
     - name: Build
-      run: echo $PATH && cargo build --verbose  ${{ matrix.features }}
+      run: LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH cargo build --verbose  ${{ matrix.features }}
     - name: Run tests
       run: cargo test --verbose
-  
+
   Test_MacOS:
     runs-on: macOS-latest
     strategy:
       matrix:
         features: ["", "--features=generate_bindings", "--features=profiling_enabled", "--features=profiling_enabled,generate_bindings"]
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: install_dependencies
-      run: | 
+      run: |
         brew install rustup
-        rustup-init -y --default-toolchain stable        
+        rustup-init -y --default-toolchain stable
     - name: Build
       run: |
         export PATH="$HOME/.cargo/bin:$PATH"
@@ -61,7 +61,7 @@ jobs:
     strategy:
       matrix:
         features: ["", "--features=profiling_enabled"]
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Build
