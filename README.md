@@ -7,7 +7,7 @@
 Rust bindings for the [Hawktracer](https://github.com/loganek/hawktracer) profiler.  
 This crate offers simple, minimal bindings to help you profile your rust programs.  
 If profiling is not enabled by specifying ```features=["profiling_enabled"]```, having tracepoints in your code has absolutely no overhead (everything gets removed at compile time).
-
+A presentation I did on this is here: https://archive.fosdem.org/2019/schedule/event/rust_hawktracer/
 
 ![alt text](https://github.com/AlexEne/alexene.github.io/raw/master/images/rust_hawktracer/demo.png)
 
